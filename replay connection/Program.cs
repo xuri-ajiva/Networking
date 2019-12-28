@@ -11,7 +11,7 @@ namespace replay_connection {
     class Program {
         static void Main(string[] args) {
             var s = new Socket( SocketType.Stream, ProtocolType.Tcp );
-            s.Bind( new IPEndPoint( IPAddress.Any, 2222 ) );
+            s.Bind( new IPEndPoint( IPAddress.Any, 9899 ) );
             s.Listen( 1000 );
             Console.WriteLine( "Listen.." );
             while ( true ) {

@@ -15,17 +15,17 @@ namespace connection_test {
             new Thread( () => {
                 int i = 10;
                 while ( s.Connected ) {
-                    if ( s.Available > 0 ) {
-                        var size = s.Available < 1024 ? s.Available : 1024;
-                        s.Receive( new byte[size] );
-                        Console.WriteLine( "[+] Received " + size );
-                    }
-
                     s.Send( Enumerable.Repeat( (byte) 1, 1024 ).ToArray() );
                     Console.WriteLine( "[-] Send 1024 " );
-                    Thread.Sleep( 100 );
+                    Thread.Sleep( 1000 );
                 }
             } ).Start();
+            while ( s.Connected ) {
+                if ( s.Available <= 0 ) continue;
+                var size = s.Available < 1024 ? s.Available : 1024;
+                s.Receive( new byte[size] );
+                Console.WriteLine( "[+] Received " + size );
+            }
         }
     }
 }
