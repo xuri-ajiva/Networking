@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proxy", "Proxy\Proxy.csproj", "{D5485BE5-3EFC-44CE-AE79-FA9783E24200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "connection test", "connection test\connection test.csproj", "{CA1DEE45-DA55-4AB4-8957-13DBB73611E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "replay connection", "replay connection\replay connection.csproj", "{937F19CB-E4D2-4711-9A23-820BA90CDD60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D5485BE5-3EFC-44CE-AE79-FA9783E24200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5485BE5-3EFC-44CE-AE79-FA9783E24200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5485BE5-3EFC-44CE-AE79-FA9783E24200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA1DEE45-DA55-4AB4-8957-13DBB73611E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1DEE45-DA55-4AB4-8957-13DBB73611E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1DEE45-DA55-4AB4-8957-13DBB73611E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1DEE45-DA55-4AB4-8957-13DBB73611E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{937F19CB-E4D2-4711-9A23-820BA90CDD60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937F19CB-E4D2-4711-9A23-820BA90CDD60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937F19CB-E4D2-4711-9A23-820BA90CDD60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937F19CB-E4D2-4711-9A23-820BA90CDD60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
