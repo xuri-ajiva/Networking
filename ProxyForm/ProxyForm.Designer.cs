@@ -35,13 +35,19 @@
             this.serv = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.gbc = new System.Windows.Forms.GroupBox();
-            this.InterruptPaketC = new System.Windows.Forms.CheckBox();
-            this.sendInteruptC = new System.Windows.Forms.Button();
+            this.p1 = new System.Windows.Forms.Panel();
+            this.p3 = new System.Windows.Forms.Panel();
             this.bgs = new System.Windows.Forms.GroupBox();
             this.InterruptPaketS = new System.Windows.Forms.CheckBox();
             this.sendInteruptS = new System.Windows.Forms.Button();
+            this.gbc = new System.Windows.Forms.GroupBox();
+            this.InterruptPaketC = new System.Windows.Forms.CheckBox();
+            this.sendInteruptC = new System.Windows.Forms.Button();
+            this.proxyList = new System.Windows.Forms.ListView();
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.p2 = new System.Windows.Forms.Panel();
+            this.stopBt = new System.Windows.Forms.Button();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.BlockedPaketes = new System.Windows.Forms.GroupBox();
             this.serB = new System.Windows.Forms.ListView();
@@ -52,11 +58,20 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AllPaketes = new System.Windows.Forms.GroupBox();
-            this.panel1.SuspendLayout();
-            this.gbc.SuspendLayout();
+            this.MainSplit = new System.Windows.Forms.SplitContainer();
+            this.splitter3 = new System.Windows.Forms.Splitter();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.p1.SuspendLayout();
+            this.p3.SuspendLayout();
             this.bgs.SuspendLayout();
+            this.gbc.SuspendLayout();
+            this.p2.SuspendLayout();
             this.BlockedPaketes.SuspendLayout();
             this.AllPaketes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MainSplit)).BeginInit();
+            this.MainSplit.Panel1.SuspendLayout();
+            this.MainSplit.Panel2.SuspendLayout();
+            this.MainSplit.SuspendLayout();
             this.SuspendLayout();
             // 
             // startBt
@@ -65,7 +80,7 @@
             this.startBt.Name = "startBt";
             this.startBt.Size = new System.Drawing.Size(75, 23);
             this.startBt.TabIndex = 0;
-            this.startBt.Text = "Start";
+            this.startBt.Text = "Start New";
             this.startBt.UseVisualStyleBackColor = true;
             this.startBt.Click += new System.EventHandler(this.startBtw_Click);
             // 
@@ -78,7 +93,7 @@
             this.clie.HideSelection = false;
             this.clie.Location = new System.Drawing.Point(3, 16);
             this.clie.Name = "clie";
-            this.clie.Size = new System.Drawing.Size(663, 221);
+            this.clie.Size = new System.Drawing.Size(462, 248);
             this.clie.TabIndex = 1;
             this.clie.UseCompatibleStateImageBehavior = false;
             this.clie.View = System.Windows.Forms.View.Details;
@@ -100,9 +115,9 @@
             this.columnHeader4});
             this.serv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serv.HideSelection = false;
-            this.serv.Location = new System.Drawing.Point(676, 16);
+            this.serv.Location = new System.Drawing.Point(475, 16);
             this.serv.Name = "serv";
-            this.serv.Size = new System.Drawing.Size(559, 221);
+            this.serv.Size = new System.Drawing.Size(638, 248);
             this.serv.TabIndex = 2;
             this.serv.UseCompatibleStateImageBehavior = false;
             this.serv.View = System.Windows.Forms.View.Details;
@@ -116,54 +131,32 @@
             // 
             this.columnHeader4.Text = "Data";
             // 
-            // panel1
+            // p1
             // 
-            this.panel1.Controls.Add(this.gbc);
-            this.panel1.Controls.Add(this.bgs);
-            this.panel1.Controls.Add(this.startBt);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1238, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(151, 451);
-            this.panel1.TabIndex = 3;
+            this.p1.Controls.Add(this.p3);
+            this.p1.Controls.Add(this.proxyList);
+            this.p1.Controls.Add(this.p2);
+            this.p1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.p1.Location = new System.Drawing.Point(1126, 0);
+            this.p1.Name = "p1";
+            this.p1.Size = new System.Drawing.Size(295, 535);
+            this.p1.TabIndex = 3;
             // 
-            // gbc
+            // p3
             // 
-            this.gbc.Controls.Add(this.InterruptPaketC);
-            this.gbc.Controls.Add(this.sendInteruptC);
-            this.gbc.Location = new System.Drawing.Point(3, 132);
-            this.gbc.Name = "gbc";
-            this.gbc.Size = new System.Drawing.Size(142, 73);
-            this.gbc.TabIndex = 6;
-            this.gbc.TabStop = false;
-            this.gbc.Text = "client";
-            // 
-            // InterruptPaketC
-            // 
-            this.InterruptPaketC.AutoSize = true;
-            this.InterruptPaketC.Location = new System.Drawing.Point(6, 19);
-            this.InterruptPaketC.Name = "InterruptPaketC";
-            this.InterruptPaketC.Size = new System.Drawing.Size(100, 17);
-            this.InterruptPaketC.TabIndex = 4;
-            this.InterruptPaketC.Text = "InterruptPaketC";
-            this.InterruptPaketC.UseVisualStyleBackColor = true;
-            this.InterruptPaketC.CheckedChanged += new System.EventHandler(this.InterruptPaketC_CheckedChanged);
-            // 
-            // sendInteruptC
-            // 
-            this.sendInteruptC.Location = new System.Drawing.Point(28, 42);
-            this.sendInteruptC.Name = "sendInteruptC";
-            this.sendInteruptC.Size = new System.Drawing.Size(75, 23);
-            this.sendInteruptC.TabIndex = 6;
-            this.sendInteruptC.Text = "Send";
-            this.sendInteruptC.UseVisualStyleBackColor = true;
-            this.sendInteruptC.Click += new System.EventHandler(this.sendInteruptC_Click);
+            this.p3.Controls.Add(this.bgs);
+            this.p3.Controls.Add(this.gbc);
+            this.p3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.p3.Location = new System.Drawing.Point(0, 454);
+            this.p3.Name = "p3";
+            this.p3.Size = new System.Drawing.Size(295, 81);
+            this.p3.TabIndex = 9;
             // 
             // bgs
             // 
             this.bgs.Controls.Add(this.InterruptPaketS);
             this.bgs.Controls.Add(this.sendInteruptS);
-            this.bgs.Location = new System.Drawing.Point(3, 53);
+            this.bgs.Location = new System.Drawing.Point(3, 3);
             this.bgs.Name = "bgs";
             this.bgs.Size = new System.Drawing.Size(142, 73);
             this.bgs.TabIndex = 7;
@@ -191,23 +184,101 @@
             this.sendInteruptS.UseVisualStyleBackColor = true;
             this.sendInteruptS.Click += new System.EventHandler(this.sendInteruptS_Click);
             // 
+            // gbc
+            // 
+            this.gbc.Controls.Add(this.InterruptPaketC);
+            this.gbc.Controls.Add(this.sendInteruptC);
+            this.gbc.Location = new System.Drawing.Point(151, 3);
+            this.gbc.Name = "gbc";
+            this.gbc.Size = new System.Drawing.Size(142, 73);
+            this.gbc.TabIndex = 6;
+            this.gbc.TabStop = false;
+            this.gbc.Text = "client";
+            // 
+            // InterruptPaketC
+            // 
+            this.InterruptPaketC.AutoSize = true;
+            this.InterruptPaketC.Location = new System.Drawing.Point(6, 19);
+            this.InterruptPaketC.Name = "InterruptPaketC";
+            this.InterruptPaketC.Size = new System.Drawing.Size(100, 17);
+            this.InterruptPaketC.TabIndex = 4;
+            this.InterruptPaketC.Text = "InterruptPaketC";
+            this.InterruptPaketC.UseVisualStyleBackColor = true;
+            this.InterruptPaketC.CheckedChanged += new System.EventHandler(this.InterruptPaketC_CheckedChanged);
+            // 
+            // sendInteruptC
+            // 
+            this.sendInteruptC.Location = new System.Drawing.Point(28, 42);
+            this.sendInteruptC.Name = "sendInteruptC";
+            this.sendInteruptC.Size = new System.Drawing.Size(75, 23);
+            this.sendInteruptC.TabIndex = 6;
+            this.sendInteruptC.Text = "Send";
+            this.sendInteruptC.UseVisualStyleBackColor = true;
+            this.sendInteruptC.Click += new System.EventHandler(this.sendInteruptC_Click);
+            // 
+            // proxyList
+            // 
+            this.proxyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11});
+            this.proxyList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.proxyList.HideSelection = false;
+            this.proxyList.Location = new System.Drawing.Point(0, 29);
+            this.proxyList.Name = "proxyList";
+            this.proxyList.Size = new System.Drawing.Size(295, 506);
+            this.proxyList.TabIndex = 8;
+            this.proxyList.UseCompatibleStateImageBehavior = false;
+            this.proxyList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "ID";
+            this.columnHeader9.Width = 30;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Ip";
+            this.columnHeader10.Width = 50;
+            // 
+            // p2
+            // 
+            this.p2.Controls.Add(this.stopBt);
+            this.p2.Controls.Add(this.startBt);
+            this.p2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.p2.Location = new System.Drawing.Point(0, 0);
+            this.p2.Name = "p2";
+            this.p2.Size = new System.Drawing.Size(295, 29);
+            this.p2.TabIndex = 11;
+            // 
+            // stopBt
+            // 
+            this.stopBt.Location = new System.Drawing.Point(87, 3);
+            this.stopBt.Name = "stopBt";
+            this.stopBt.Size = new System.Drawing.Size(75, 23);
+            this.stopBt.TabIndex = 10;
+            this.stopBt.Text = "Stopp All";
+            this.stopBt.UseVisualStyleBackColor = true;
+            this.stopBt.Click += new System.EventHandler(this.stopBt_Click);
+            // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(666, 16);
+            this.splitter1.Location = new System.Drawing.Point(465, 16);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(10, 221);
+            this.splitter1.Size = new System.Drawing.Size(10, 248);
             this.splitter1.TabIndex = 4;
             this.splitter1.TabStop = false;
+            this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sm);
             // 
             // BlockedPaketes
             // 
             this.BlockedPaketes.Controls.Add(this.serB);
             this.BlockedPaketes.Controls.Add(this.splitter2);
             this.BlockedPaketes.Controls.Add(this.cliB);
-            this.BlockedPaketes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BlockedPaketes.Location = new System.Drawing.Point(0, 240);
+            this.BlockedPaketes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BlockedPaketes.Location = new System.Drawing.Point(0, 0);
             this.BlockedPaketes.Name = "BlockedPaketes";
-            this.BlockedPaketes.Size = new System.Drawing.Size(1238, 211);
+            this.BlockedPaketes.Size = new System.Drawing.Size(1116, 264);
             this.BlockedPaketes.TabIndex = 5;
             this.BlockedPaketes.TabStop = false;
             this.BlockedPaketes.Text = "BlockedPaketes";
@@ -219,9 +290,9 @@
             this.columnHeader6});
             this.serB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serB.HideSelection = false;
-            this.serB.Location = new System.Drawing.Point(676, 16);
+            this.serB.Location = new System.Drawing.Point(475, 16);
             this.serB.Name = "serB";
-            this.serB.Size = new System.Drawing.Size(559, 192);
+            this.serB.Size = new System.Drawing.Size(638, 245);
             this.serB.TabIndex = 6;
             this.serB.UseCompatibleStateImageBehavior = false;
             this.serB.View = System.Windows.Forms.View.Details;
@@ -237,11 +308,12 @@
             // 
             // splitter2
             // 
-            this.splitter2.Location = new System.Drawing.Point(666, 16);
+            this.splitter2.Location = new System.Drawing.Point(465, 16);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(10, 192);
+            this.splitter2.Size = new System.Drawing.Size(10, 245);
             this.splitter2.TabIndex = 7;
             this.splitter2.TabStop = false;
+            this.splitter2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sm);
             // 
             // cliB
             // 
@@ -252,7 +324,7 @@
             this.cliB.HideSelection = false;
             this.cliB.Location = new System.Drawing.Point(3, 16);
             this.cliB.Name = "cliB";
-            this.cliB.Size = new System.Drawing.Size(663, 192);
+            this.cliB.Size = new System.Drawing.Size(462, 245);
             this.cliB.TabIndex = 5;
             this.cliB.UseCompatibleStateImageBehavior = false;
             this.cliB.View = System.Windows.Forms.View.Details;
@@ -275,30 +347,68 @@
             this.AllPaketes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AllPaketes.Location = new System.Drawing.Point(0, 0);
             this.AllPaketes.Name = "AllPaketes";
-            this.AllPaketes.Size = new System.Drawing.Size(1238, 240);
+            this.AllPaketes.Size = new System.Drawing.Size(1116, 267);
             this.AllPaketes.TabIndex = 6;
             this.AllPaketes.TabStop = false;
             this.AllPaketes.Text = "AllPaketes";
+            // 
+            // MainSplit
+            // 
+            this.MainSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainSplit.Location = new System.Drawing.Point(0, 0);
+            this.MainSplit.Name = "MainSplit";
+            this.MainSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // MainSplit.Panel1
+            // 
+            this.MainSplit.Panel1.Controls.Add(this.AllPaketes);
+            // 
+            // MainSplit.Panel2
+            // 
+            this.MainSplit.Panel2.Controls.Add(this.BlockedPaketes);
+            this.MainSplit.Size = new System.Drawing.Size(1116, 535);
+            this.MainSplit.SplitterDistance = 267;
+            this.MainSplit.TabIndex = 7;
+            // 
+            // splitter3
+            // 
+            this.splitter3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter3.Location = new System.Drawing.Point(1116, 0);
+            this.splitter3.Name = "splitter3";
+            this.splitter3.Size = new System.Drawing.Size(10, 535);
+            this.splitter3.TabIndex = 12;
+            this.splitter3.TabStop = false;
+            this.splitter3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sm);
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Port";
             // 
             // ProxyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1389, 451);
-            this.Controls.Add(this.AllPaketes);
-            this.Controls.Add(this.BlockedPaketes);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1421, 535);
+            this.Controls.Add(this.MainSplit);
+            this.Controls.Add(this.splitter3);
+            this.Controls.Add(this.p1);
             this.Name = "ProxyForm";
             this.Text = "ProxyForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProxyForm_FormClosed);
             this.Load += new System.EventHandler(this.ProxyForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.gbc.ResumeLayout(false);
-            this.gbc.PerformLayout();
+            this.p1.ResumeLayout(false);
+            this.p3.ResumeLayout(false);
             this.bgs.ResumeLayout(false);
             this.bgs.PerformLayout();
+            this.gbc.ResumeLayout(false);
+            this.gbc.PerformLayout();
+            this.p2.ResumeLayout(false);
             this.BlockedPaketes.ResumeLayout(false);
             this.AllPaketes.ResumeLayout(false);
+            this.MainSplit.Panel1.ResumeLayout(false);
+            this.MainSplit.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MainSplit)).EndInit();
+            this.MainSplit.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -308,7 +418,7 @@
         private System.Windows.Forms.Button startBt;
         private System.Windows.Forms.ListView clie;
         private System.Windows.Forms.ListView serv;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel p1;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -329,6 +439,15 @@
         private System.Windows.Forms.Button sendInteruptS;
         private System.Windows.Forms.Button sendInteruptC;
         private System.Windows.Forms.GroupBox gbc;
+        private System.Windows.Forms.ListView proxyList;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.SplitContainer MainSplit;
+        private System.Windows.Forms.Button stopBt;
+        private System.Windows.Forms.Panel p3;
+        private System.Windows.Forms.Panel p2;
+        private System.Windows.Forms.Splitter splitter3;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
     }
 }
 

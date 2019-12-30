@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,9 +14,34 @@ using static Proxy.Query;
 
 namespace Proxy {
     public class ProxyClass {
-        public void StartProxy(int port, IPAddress realServer) {
-            new Client( port - 1, realServer ).Start();
-            new Receiver( port ).Start();
+        List<Thread> _runtime = new List<Thread>();
+
+        private Client   c;
+        private Receiver r;
+
+        public IPAddress realServer;
+        public int       port;
+
+        public ProxyClass(int port, IPAddress realServer) {
+            this.realServer = realServer;
+            this.port       = port;
+        }
+
+
+        public void StartProxy() {
+            this.c = new Client( this.port - 1, this.realServer );
+            this.r = new Receiver( this.port );
+            this.c.Start();
+            this.r.Start();
+        }
+
+        public void Shutdown() {
+            this.r.Shutdown();
+            this.c.Shutdown();
+
+            for ( int i = 0; i < this._runtime.Count; i++ ) {
+                this._runtime[i].Abort();
+            }
         }
 
         /// <summary>
@@ -24,8 +50,12 @@ namespace Proxy {
         /// <param name="clientInterrupt">Interrupt for paketes Reserved from the real Server</param>
         /// <param name="serverInterrupt">Interrupt for paketes Reserved from the Client</param>
         public void StartForwarding(interrupt clientInterrupt, interrupt serverInterrupt) {
-            new Thread( () => tStart( ReservedPaketQueue, BlockedReservedPaketQueue, SendingClassifiedSockets, clientInterrupt ) ).Start();
-            new Thread( () => tStart( SendingPaketQueue, BlockedSendingPaketQueue, ReservingClassifiedSockets, serverInterrupt ) ).Start();
+            var r = new Thread( () => tStart( ReservedPaketQueue, BlockedReservedPaketQueue, SendingClassifiedSockets,   clientInterrupt ) );
+            var s = new Thread( () => tStart( SendingPaketQueue,  BlockedSendingPaketQueue,  ReservingClassifiedSockets, serverInterrupt ) );
+            this._runtime.Add( r );
+            this._runtime.Add( s );
+            r.Start();
+            s.Start();
         }
 
         void tStart(Queue<Paket> l, Queue<Paket> bq, List<ClassifiedSocket> s, interrupt it) {
@@ -57,7 +87,12 @@ namespace Proxy {
                         cc.Add( sockets[new Random().Next( 0, sockets.Count - 1 )] );
                         break;
                     case SendMode.ToFirst:
-                        cc.Add( sockets[0] );
+                        foreach ( var s in sockets ) {
+                            if ( s.client == null ) continue;
+                            cc.Add( s );
+                            break;
+                        }
+
                         break;
                     case SendMode.ToFirstByPort:
                         cc.Add( sockets.First( cs => cs.port == p.port ) );
@@ -66,7 +101,9 @@ namespace Proxy {
                 }
             } catch (Exception e) { Console.WriteLine( e.Message ); }
 
-            cc.ForEach( c => c.client.Client.Send( p._buffer ) );
+            foreach ( var se in cc ) {
+                try { se.client.Client.Send( p._buffer ); } catch (Exception e) { }
+            }
             return cc;
         }
 
@@ -81,6 +118,7 @@ namespace Proxy {
             public static readonly interrupt EMPTY_INTERRUPT = new interrupt();
 
 
+            // ReSharper disable once ArrangeThisQualifier
             public interrupt(Func<Paket, bool> subscribe) { interrupted = subscribe; }
 
             /// <summary>
@@ -142,6 +180,9 @@ namespace Proxy {
         private TcpListener _socket;
         private int         port;
 
+        List<Thread>           _runtime = new List<Thread>();
+        List<ClassifiedSocket> _clients = new List<ClassifiedSocket>();
+
         public Receiver(int port) {
             this.port    = port;
             this._socket = new TcpListener( new IPEndPoint( IPAddress.Any, port ) );
@@ -155,31 +196,53 @@ namespace Proxy {
                 return false;
             }
 
-            new Thread( () => {
+            var t = new Thread( () => {
                 while ( clientsAllowed-- > 0 ) {
                     handleClient( this._socket.AcceptTcpClient(), this.port );
                 }
-            } ).Start();
+            } );
+            t.Start();
+            this._runtime.Add( t );
             return true;
         }
 
         void handleClient(TcpClient tc, int port) {
             var addr = ( (IPEndPoint) ( tc.Client.RemoteEndPoint ) ).Address;
-            ReservingClassifiedSockets.Add( new ClassifiedSocket( tc, port, addr ) );
-            Console.WriteLine( "addR" );
-            while ( true ) {
-                if ( tc.Available > 0 ) {
-                    var size = tc.Available < 4096 ? tc.Available : 4096;
-                    var c    = new Paket( new byte[size], port, addr );
-                    tc.Client.Receive( c._buffer );
-                    ReservedPaketQueue.Enqueue( c );
+            var cs   = new ClassifiedSocket( tc, port, addr );
+            ReservingClassifiedSockets.Add( cs );
+
+            var t = new Thread( () => {
+                while ( tc.Connected ) {
+                    if ( tc.Available > 0 ) {
+                        var size = tc.Available < 4096 ? tc.Available : 4096;
+                        var c    = new Paket( new byte[size], port, addr );
+                        tc.Client.Receive( c._buffer );
+                        ReservedPaketQueue.Enqueue( c );
+                    }
                 }
+            } );
+            t.Start();
+            this._runtime.Add( t );
+        }
+
+        public void Shutdown() {
+            this._socket.Stop();
+
+            for ( int i = 0; i < this._clients.Count; i++ ) {
+                this._clients[i].client?.Close();
+                ReservingClassifiedSockets.Remove( this._clients[i] );
+                this._clients[i] = ClassifiedSocket.Empty;
+            }
+
+            for ( int i = 0; i < this._runtime.Count; i++ ) {
+                this._runtime[i].Abort();
             }
         }
     }
 
     public class Client {
-        private TcpClient  cl;
+        private ClassifiedSocket  cl;
+        private Thread     clientThread;
         private IPEndPoint ipEndPoint;
         private int        port;
         IPAddress          ipAddress;
@@ -188,31 +251,40 @@ namespace Proxy {
             this.port       = port;
             this.ipAddress  = ipAddress;
             this.ipEndPoint = new IPEndPoint( ipAddress, port );
-            this.cl         = new TcpClient();
+            this.cl         = new ClassifiedSocket(new TcpClient(),port,ipAddress);
         }
 
         public bool Start() {
             try {
-                this.cl.Connect( this.ipEndPoint );
+                this.cl.client.Connect( this.ipEndPoint );
             } catch (Exception e) {
                 Console.WriteLine( e.Message );
                 return false;
             }
 
-            SendingClassifiedSockets.Add( new ClassifiedSocket( this.cl, this.port, this.ipAddress ) );
+            SendingClassifiedSockets.Add( this.cl );
             Console.WriteLine( "addS" );
 
-            new Thread( () => {
+            var t = new Thread( () => {
                 while ( true ) {
-                    if ( this.cl.Available > 0 ) {
-                        var size = this.cl.Available < 4096 ? this.cl.Available : 4096;
+                    if ( this.cl.client.Available > 0 ) {
+                        var size = this.cl.client.Available < 4096 ? this.cl.client.Available : 4096;
                         var c    = new Paket( new byte[size], this.port, this.ipAddress );
-                        this.cl.Client.Receive( c._buffer );
+                        this.cl.client.Client.Receive( c._buffer );
                         SendingPaketQueue.Enqueue( c );
                     }
                 }
-            } ).Start();
+            } );
+            t.Start();
+            this.clientThread = t;
             return true;
+        }
+
+        public void Shutdown() {
+            SendingClassifiedSockets.Remove( this.cl );
+            this.cl.client.Close();
+            this.cl = ClassifiedSocket.Empty;
+            this.clientThread.Abort();
         }
     }
 }
