@@ -21,10 +21,11 @@ namespace connection_test {
                 }
             } ).Start();
             while ( s.Connected ) {
-                if ( s.Available <= 0 ) continue;
-                var size = s.Available < 1024 ? s.Available : 1024;
-                s.Receive( new byte[size] );
-                Console.WriteLine( "[+] Received " + size );
+                if ( s.Available > 0 ) {
+                    var size = s.Available < 1024 ? s.Available : 1024;
+                    s.Receive( new byte[size] );
+                    Console.WriteLine( "[+] Received " + size );
+                }else{Thread.Sleep( 10 );}
             }
         }
     }

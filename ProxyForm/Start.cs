@@ -13,13 +13,22 @@ namespace ProxyForm {
         public Start() { InitializeComponent(); }
 
         private void button1_Click(object sender, EventArgs e) {
-            DialogResult = DialogResult.OK; this.Close(); }
+            DialogResult = DialogResult.OK;
+            this.Close();
+        }
 
-        public int    getPort() { return int.Parse( this.port.Text ); }
+        public int    getPortL() { return int.Parse( this.portL.Text ); }
+        public int    getPortC() { return int.Parse( this.portC.Text ); }
         public string getIp()   { return this.ip.Text; }
 
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e) {
+        private void port_KeyPress(object sender, KeyPressEventArgs e) {
             if ( !char.IsControl( e.KeyChar ) && !char.IsDigit( e.KeyChar ) && ( e.KeyChar != '.' ) ) {
+                e.Handled = true;
+            }
+        }
+
+        private void ip_KeyPress(object sender, KeyPressEventArgs e) {
+            if ( !char.IsControl( e.KeyChar ) && !char.IsDigit( e.KeyChar ) ) {
                 e.Handled = true;
             }
         }

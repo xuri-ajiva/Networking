@@ -25,8 +25,12 @@ namespace replay_connection {
                             c.Receive( bu );
                             c.Send( bu );
                             Console.WriteLine( "[+] Received/Send " + size );
-                        }
+                        }else{Thread.Sleep( 10 );}
                     }
+                    c.Close();
+                    c.Dispose();
+                    c = null;
+                    Console.WriteLine( "one disconnected..." );
                 } ).Start();
             }
         }

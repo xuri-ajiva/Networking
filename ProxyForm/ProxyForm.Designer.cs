@@ -46,7 +46,9 @@
             this.proxyList = new System.Windows.Forms.ListView();
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.p2 = new System.Windows.Forms.Panel();
+            this.stopSelectedBtw = new System.Windows.Forms.Button();
             this.stopBt = new System.Windows.Forms.Button();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.BlockedPaketes = new System.Windows.Forms.GroupBox();
@@ -60,7 +62,7 @@
             this.AllPaketes = new System.Windows.Forms.GroupBox();
             this.MainSplit = new System.Windows.Forms.SplitContainer();
             this.splitter3 = new System.Windows.Forms.Splitter();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.p1.SuspendLayout();
             this.p3.SuspendLayout();
             this.bgs.SuspendLayout();
@@ -76,7 +78,9 @@
             // 
             // startBt
             // 
-            this.startBt.Location = new System.Drawing.Point(6, 3);
+            this.startBt.AutoSize = true;
+            this.startBt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.startBt.Location = new System.Drawing.Point(0, 0);
             this.startBt.Name = "startBt";
             this.startBt.Size = new System.Drawing.Size(75, 23);
             this.startBt.TabIndex = 0;
@@ -93,11 +97,11 @@
             this.clie.HideSelection = false;
             this.clie.Location = new System.Drawing.Point(3, 16);
             this.clie.Name = "clie";
-            this.clie.Size = new System.Drawing.Size(462, 248);
+            this.clie.Size = new System.Drawing.Size(543, 248);
             this.clie.TabIndex = 1;
             this.clie.UseCompatibleStateImageBehavior = false;
             this.clie.View = System.Windows.Forms.View.Details;
-            this.clie.DoubleClick += new System.EventHandler(this.DoubleClick);
+            this.clie.DoubleClick += new System.EventHandler(this.DoubleClickP);
             // 
             // columnHeader2
             // 
@@ -115,13 +119,13 @@
             this.columnHeader4});
             this.serv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serv.HideSelection = false;
-            this.serv.Location = new System.Drawing.Point(475, 16);
+            this.serv.Location = new System.Drawing.Point(556, 16);
             this.serv.Name = "serv";
-            this.serv.Size = new System.Drawing.Size(638, 248);
+            this.serv.Size = new System.Drawing.Size(557, 248);
             this.serv.TabIndex = 2;
             this.serv.UseCompatibleStateImageBehavior = false;
             this.serv.View = System.Windows.Forms.View.Details;
-            this.serv.DoubleClick += new System.EventHandler(this.DoubleClick);
+            this.serv.DoubleClick += new System.EventHandler(this.DoubleClickP);
             // 
             // columnHeader1
             // 
@@ -176,13 +180,14 @@
             // 
             // sendInteruptS
             // 
+            this.sendInteruptS.Enabled = false;
             this.sendInteruptS.Location = new System.Drawing.Point(28, 42);
             this.sendInteruptS.Name = "sendInteruptS";
             this.sendInteruptS.Size = new System.Drawing.Size(75, 23);
             this.sendInteruptS.TabIndex = 5;
             this.sendInteruptS.Text = "Send";
             this.sendInteruptS.UseVisualStyleBackColor = true;
-            this.sendInteruptS.Click += new System.EventHandler(this.sendInteruptS_Click);
+            this.sendInteruptS.Click += new System.EventHandler(this.sendInterruptS_Click);
             // 
             // gbc
             // 
@@ -208,28 +213,31 @@
             // 
             // sendInteruptC
             // 
+            this.sendInteruptC.Enabled = false;
             this.sendInteruptC.Location = new System.Drawing.Point(28, 42);
             this.sendInteruptC.Name = "sendInteruptC";
             this.sendInteruptC.Size = new System.Drawing.Size(75, 23);
             this.sendInteruptC.TabIndex = 6;
             this.sendInteruptC.Text = "Send";
             this.sendInteruptC.UseVisualStyleBackColor = true;
-            this.sendInteruptC.Click += new System.EventHandler(this.sendInteruptC_Click);
+            this.sendInteruptC.Click += new System.EventHandler(this.sendInterruptC_Click);
             // 
             // proxyList
             // 
             this.proxyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader9,
             this.columnHeader10,
-            this.columnHeader11});
+            this.columnHeader11,
+            this.columnHeader12});
             this.proxyList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.proxyList.HideSelection = false;
-            this.proxyList.Location = new System.Drawing.Point(0, 29);
+            this.proxyList.Location = new System.Drawing.Point(0, 23);
             this.proxyList.Name = "proxyList";
-            this.proxyList.Size = new System.Drawing.Size(295, 506);
+            this.proxyList.Size = new System.Drawing.Size(295, 512);
             this.proxyList.TabIndex = 8;
             this.proxyList.UseCompatibleStateImageBehavior = false;
             this.proxyList.View = System.Windows.Forms.View.Details;
+            this.proxyList.SelectedIndexChanged += new System.EventHandler(this.proxyList_SelectedIndexChanged);
             // 
             // columnHeader9
             // 
@@ -241,19 +249,39 @@
             this.columnHeader10.Text = "Ip";
             this.columnHeader10.Width = 50;
             // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "PortConnect";
+            this.columnHeader11.Width = 75;
+            // 
             // p2
             // 
+            this.p2.Controls.Add(this.stopSelectedBtw);
             this.p2.Controls.Add(this.stopBt);
             this.p2.Controls.Add(this.startBt);
             this.p2.Dock = System.Windows.Forms.DockStyle.Top;
             this.p2.Location = new System.Drawing.Point(0, 0);
             this.p2.Name = "p2";
-            this.p2.Size = new System.Drawing.Size(295, 29);
+            this.p2.Size = new System.Drawing.Size(295, 23);
             this.p2.TabIndex = 11;
+            // 
+            // stopSelectedBtw
+            // 
+            this.stopSelectedBtw.AutoSize = true;
+            this.stopSelectedBtw.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stopSelectedBtw.Location = new System.Drawing.Point(150, 0);
+            this.stopSelectedBtw.Name = "stopSelectedBtw";
+            this.stopSelectedBtw.Size = new System.Drawing.Size(145, 23);
+            this.stopSelectedBtw.TabIndex = 11;
+            this.stopSelectedBtw.Text = "Stopp Selected";
+            this.stopSelectedBtw.UseVisualStyleBackColor = true;
+            this.stopSelectedBtw.Click += new System.EventHandler(this.stopSelectedBtw_Click);
             // 
             // stopBt
             // 
-            this.stopBt.Location = new System.Drawing.Point(87, 3);
+            this.stopBt.AutoSize = true;
+            this.stopBt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.stopBt.Location = new System.Drawing.Point(75, 0);
             this.stopBt.Name = "stopBt";
             this.stopBt.Size = new System.Drawing.Size(75, 23);
             this.stopBt.TabIndex = 10;
@@ -263,12 +291,12 @@
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(465, 16);
+            this.splitter1.Location = new System.Drawing.Point(546, 16);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(10, 248);
             this.splitter1.TabIndex = 4;
             this.splitter1.TabStop = false;
-            this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sm);
+            this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.Sm);
             // 
             // BlockedPaketes
             // 
@@ -290,13 +318,13 @@
             this.columnHeader6});
             this.serB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serB.HideSelection = false;
-            this.serB.Location = new System.Drawing.Point(475, 16);
+            this.serB.Location = new System.Drawing.Point(556, 16);
             this.serB.Name = "serB";
-            this.serB.Size = new System.Drawing.Size(638, 245);
+            this.serB.Size = new System.Drawing.Size(557, 245);
             this.serB.TabIndex = 6;
             this.serB.UseCompatibleStateImageBehavior = false;
             this.serB.View = System.Windows.Forms.View.Details;
-            this.serB.DoubleClick += new System.EventHandler(this.DoubleClick);
+            this.serB.DoubleClick += new System.EventHandler(this.DoubleClickP);
             // 
             // columnHeader5
             // 
@@ -308,12 +336,12 @@
             // 
             // splitter2
             // 
-            this.splitter2.Location = new System.Drawing.Point(465, 16);
+            this.splitter2.Location = new System.Drawing.Point(546, 16);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(10, 245);
             this.splitter2.TabIndex = 7;
             this.splitter2.TabStop = false;
-            this.splitter2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sm);
+            this.splitter2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.Sm);
             // 
             // cliB
             // 
@@ -324,11 +352,11 @@
             this.cliB.HideSelection = false;
             this.cliB.Location = new System.Drawing.Point(3, 16);
             this.cliB.Name = "cliB";
-            this.cliB.Size = new System.Drawing.Size(462, 245);
+            this.cliB.Size = new System.Drawing.Size(543, 245);
             this.cliB.TabIndex = 5;
             this.cliB.UseCompatibleStateImageBehavior = false;
             this.cliB.View = System.Windows.Forms.View.Details;
-            this.cliB.DoubleClick += new System.EventHandler(this.DoubleClick);
+            this.cliB.DoubleClick += new System.EventHandler(this.DoubleClickP);
             // 
             // columnHeader7
             // 
@@ -378,11 +406,11 @@
             this.splitter3.Size = new System.Drawing.Size(10, 535);
             this.splitter3.TabIndex = 12;
             this.splitter3.TabStop = false;
-            this.splitter3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sm);
+            this.splitter3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.Sm);
             // 
-            // columnHeader11
+            // columnHeader12
             // 
-            this.columnHeader11.Text = "Port";
+            this.columnHeader12.Text = "PortListen";
             // 
             // ProxyForm
             // 
@@ -403,6 +431,7 @@
             this.gbc.ResumeLayout(false);
             this.gbc.PerformLayout();
             this.p2.ResumeLayout(false);
+            this.p2.PerformLayout();
             this.BlockedPaketes.ResumeLayout(false);
             this.AllPaketes.ResumeLayout(false);
             this.MainSplit.Panel1.ResumeLayout(false);
@@ -448,6 +477,8 @@
         private System.Windows.Forms.Panel p2;
         private System.Windows.Forms.Splitter splitter3;
         private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.Button stopSelectedBtw;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
     }
 }
 
