@@ -52,14 +52,14 @@ namespace ProxyForm {
         private void ProxyForm_Load(object sender, EventArgs e) {
             Sm( this, null );
 
-            var p  = new ProxyClass( 9899, 9900, IPAddress.Parse( "127.0.0.1" ) );
-            var pv = new ProxyImplementation( p );
-            pv.triggerCSubscribe += this.CSubscribe;
-            pv.triggerSSubscribe += this.SSubscribe;
-            pv.StartForwarding();
-
-            pv.Proxy.StartProxy();
-            add( pv );
+            //var p  = new ProxyClass( 9899, 9900, IPAddress.Parse( "127.0.0.1" ) );
+            //var pv = new ProxyImplementation( p );
+            //pv.triggerCSubscribe += this.CSubscribe;
+            //pv.triggerSSubscribe += this.SSubscribe;
+            //pv.StartForwarding();
+            //
+            //pv.Proxy.StartProxy();
+            //add( pv );
         }
 
         private void ProxyForm_FormClosed(object sender, FormClosedEventArgs e) { Environment.Exit( 0 ); }

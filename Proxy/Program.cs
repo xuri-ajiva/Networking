@@ -98,9 +98,9 @@ namespace Proxy {
             ReservingClassifiedSockets.Add( cs );
 
             var t = new Thread( () => {
-                while ( tc.Connected ) {
+                while (tc.Client != null && tc.Connected ) {
                     if ( tc.Available > 0 ) {
-                        var size = tc.Available < 4096 ? tc.Available : 4096;
+                        var size = tc.Available;//< 4096 ? tc.Available : 4096;
                         if ( size == 0 ) continue;
                         var c = new Paket( new byte[size], port, addr );
                         if ( !( c * Paket.Empty ) ) {
@@ -157,7 +157,7 @@ namespace Proxy {
             var t = new Thread( () => {
                 while ( this.cl.client != null ) {
                     if ( this.cl.client.Available > 0 ) {
-                        var size = this.cl.client.Available < 4096 ? this.cl.client.Available : 4096;
+                        var size = this.cl.client.Available ;//< 4096 ? this.cl.client.Available : 4096;
                         if ( size == 0 ) continue;
                         var c = new Paket( new byte[size], this.port, this.ipAddress );
                         if ( !( c * Paket.Empty ) ) {
